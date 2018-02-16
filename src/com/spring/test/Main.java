@@ -4,18 +4,41 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.spring.config.AppConfig;
-import com.spring.service.TransferService;
+import com.spring.service.UserService;
 
 public class Main {
 	public static void main(String[] args) {
-		ConfigurableApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+		ConfigurableApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class);
 		
-		TransferService transferService = applicationContext.getBean(TransferService.class);
-		transferService.transfer("accountA", "accountB", 50000l);
-		transferService.checkBalance("accountA");
-		transferService.diposite("accountA", 50000l);
-		transferService.withdrawal("accountB", 40000l);
+		UserService userService = appContext.getBean(UserService.class);
 		
-		applicationContext.close();
+		userService.methodSpecific();
+		
+		userService.methodWithParam(10, 20, 30);
+		userService.methodWithThreeParam(10,  20,  30);
+		
+		userService.methodWithParam(10,  20);
+		userService.methodWithParam("Hello", "World");
+		userService.methodWithParam(1.1,  2.2);
+		userService.methodWithTwoParam("Hello", "World");
+		
+//		System.out.println("..............................................");
+//		userService.methodForAround();
+//		userService.methodForAround(10);
+//		
+//		System.out.println("===============================================");
+//		try {
+//			userService.methodWithTwoParamThrow(10, 10);
+//		} catch (Exception e) {
+//			System.out.println("EXCEPTION THROWN............\n");
+//		}
+//		
+//		try {
+//			userService.methodWithTwoParamThrow("Hello", "World");
+//		} catch (Exception e) {
+//			System.out.println("ONE MORE EXCEPTION THROWN............\n");
+//		}
+		
+		appContext.close();
 	}
 }
